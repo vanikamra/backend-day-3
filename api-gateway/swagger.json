@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Microservices API",
+    "version": "1.0.0",
+    "description": "API documentation for the microservices project."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002"
+    }
+  ],
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user by ID",
+        "description": "Retrieves a user's information by their ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" }
+                  }
+                },
+                "example": {
+                  "id": "1",
+                  "name": "Sample User"
+                }
+              }
+            }
+          },
+          "404": { "description": "User not found" }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+
+    "/products/{id}": {
+      "get": {
+        "summary": "Get product by ID",
+        "description": "Retrieves a product's information by its ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "The product ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "price": { "type": "number" }
+                  }
+                },
+                "example": {
+                  "id": "101",
+                  "name": "Premium Subscription",
+                  "price": 49.99
+                }
+              }
+            }
+          },
+          "404": { "description": "Product not found" }
+        }
+      }
+    },
+
+    "/userProducts/{userId}": {
+      "get": {
+        "summary": "Get products for a user",
+        "description": "Retrieves all products associated with a user.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "price": { "type": "number" }
+                    }
+                  }
+                },
+                "example": [
+                  { "id": "101", "name": "Premium Subscription", "price": 49.99 },
+                  { "id": "102", "name": "Basic Subscription", "price": 19.99 }
+                ]
+              }
+            }
+          },
+          "404": { "description": "User or products not found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}

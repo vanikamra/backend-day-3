@@ -2,6 +2,11 @@ const express = require('express');
 const fetch = require('node-fetch'); // Import node-fetch
 const app = express();
 const port = 3002;
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.get('/users/:id', async (req, res) => {
 //  const response = await fetch(`http://localhost:3000/users/${req.params.id}`);
 //  const data = await response.json();
